@@ -1,3 +1,4 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:school_app/data/features/auth/auth_provider.dart';
 import 'package:school_app/data/services/local_storage.dart';
@@ -10,9 +11,8 @@ final sharedPreferencesProvider = FutureProvider(
 
 final supabaseProvider = FutureProvider<supabase.Supabase>(
   (ref) async => supabase.Supabase.initialize(
-    url: 'https://ffvxfteqroddmgxdurho.supabase.co',
-    anonKey:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZmdnhmdGVxcm9kZG1neGR1cmhvIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzIyNTAzNzIsImV4cCI6MTk4NzgyNjM3Mn0.rZx6U5O0ndEfOG17Kj1xJXW87pIdV56mmWRJLpMenXQ',
+    url: dotenv.env['SUPABASE_URL']!,
+    anonKey: dotenv.env['SUPABASE_KEY']!,
   ),
 );
 
