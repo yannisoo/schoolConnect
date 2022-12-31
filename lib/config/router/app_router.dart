@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:familly/pages/home/home_page.dart';
 import 'package:familly/pages/login/login_page.dart';
+import 'package:familly/pages/register/register_page.dart';
 import 'package:familly/pages/splash/splash_page.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +11,8 @@ part 'app_router.gr.dart';
   routes: <AutoRoute>[
     AutoRoute(page: SplashPage, initial: true),
     AutoRoute(page: HomePage),
-    AutoRoute(page: LoginPage)
+    AutoRoute(page: LoginPage),
+    AutoRoute(page: RegisterPage)
   ],
 )
 // extend the generated private router

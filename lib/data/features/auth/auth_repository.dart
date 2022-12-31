@@ -81,10 +81,12 @@ class AuthRepository {
         supabase.Provider.google,
       );
 
-  Future<void> signInWithOtp(String email) async =>
-      authClient.signInWithOtp(email: email);
+  Future<void> signUp(String email, String password) async =>
+      authClient.signUp(email: email, password: password);
 
-  /// Signs out user from the application
+  Future<supabase.AuthResponse> signIn(String email, String password) async =>
+      authClient.signInWithPassword(email: email, password: password);
+
   Future<void> signOut() async {
     await storage.remove(LocalStorageKey.sessionToken);
     return authClient.signOut();

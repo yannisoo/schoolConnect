@@ -25,9 +25,10 @@ class _SplashPageState extends State<SplashPage> {
     _redirectCalled = true;
     final session = supabase.auth.currentSession;
     if (session != null) {
-      AutoRouter.of(context).push(const HomePageRoute());
+      AutoRouter.of(context).replaceAll([const HomePageRoute()]);
+      // AutoRouter.of(context).replaceAll([const LoginPageRoute()]);
     } else {
-      AutoRouter.of(context).push(const LoginPageRoute());
+      AutoRouter.of(context).replaceAll([const LoginPageRoute()]);
     }
     super.initState();
   }

@@ -24,3 +24,5 @@ final authControllerProvider =
 
 final emailProvider =
     StateProvider<TextEditingController>((ref) => TextEditingController());
+final passwordProvider =
+    StateProvider<TextEditingController>((ref) => TextEditingController());

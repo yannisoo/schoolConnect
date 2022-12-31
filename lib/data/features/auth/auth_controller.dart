@@ -1,18 +1,21 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:familly/config/router/app_router.dart';
 import 'package:familly/data/features/auth/auth_provider.dart';
 import 'package:familly/data/features/auth/auth_repository.dart';
+import 'package:familly/pages/login/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' as supabase;
 import 'package:uni_links/uni_links.dart';
 
 class AuthController extends StateNotifier<supabase.User?> {
-  ///
   AuthController(this._read) : super(null) {
     _initialize();
   }
   final Ref _read;
   AuthRepository get _repository => _read.read(authRepositoryProvider);
-  TextEditingController get _phoneNumberController => _read.read(emailProvider);
+  TextEditingController get _emailController => _read.read(emailProvider);
+  TextEditingController get _passwordController => _read.read(passwordProvider);
 
   ///
   Future<void> _initialize() async {
@@ -53,7 +56,6 @@ class AuthController extends StateNotifier<supabase.User?> {
     _updateAuthState();
   }
 
-  /// Signs out user
   Future<void> signOut() async {
     await _repository.signOut();
   }
@@ -62,7 +64,13 @@ class AuthController extends StateNotifier<supabase.User?> {
     await _repository.signInWithGoogle();
   }
 
-  Future<void> signInWithOtp() async {
-    await _repository.signInWithOtp(_phoneNumberController.text);
+  Future<void> signIn(BuildContext context) async {
+    await _repository.signIn(_emailController.text, _passwordController.text);
+    await AutoRouter.of(context).replaceAll([const HomePageRoute()]);
+  }
+
+  Future<void> signUp(BuildContext context) async {
+    await _repository.signUp(_emailController.text, _passwordController.text);
+    await AutoRouter.of(context).replaceAll([const LoginPageRoute()]);
   }
 }

@@ -1,6 +1,11 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:familly/config/router/app_router.dart';
+import 'package:familly/config/themes.dart';
 import 'package:familly/data/features/auth/auth_provider.dart';
+import 'package:familly/utils/error_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:supabase_flutter/supabase_flutter.dart' as supabase;
 
 @immutable
 class LoginPage extends ConsumerWidget {
@@ -16,15 +21,37 @@ class LoginPage extends ConsumerWidget {
               controller: ref.watch(emailProvider),
               decoration: const InputDecoration(labelText: 'Email'),
             ),
+            TextFormField(
+              controller: ref.watch(passwordProvider),
+              obscureText: true,
+              decoration: const InputDecoration(labelText: 'Password'),
+            ),
             ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
                 try {
-                  ref.read(authControllerProvider.notifier).signInWithOtp();
-                } catch (e) {
-                  print(e);
+                  await ref
+                      .read(authControllerProvider.notifier)
+                      .signIn(context);
+                } on supabase.AuthException catch (e) {
+                  errorDisplayer(context, message: e.message);
+                } catch (_) {
+                  errorDisplayer(context);
                 }
               },
-              child: Text('test'),
+              child: const Text('Log in'),
+            ),
+            Center(
+              child: InkWell(
+                onTap: () =>
+                    AutoRouter.of(context).push(const RegisterPageRoute()),
+                child: Text(
+                  "s'incrire",
+                  style: theme.textTheme.bodyText1?.copyWith(
+                    color: theme.primaryColor,
+                    decoration: TextDecoration.underline,
+                  ),
+                ),
+              ),
             )
           ],
         ),
