@@ -1,7 +1,7 @@
-import 'package:familly/data/features/auth/auth_provider.dart';
-import 'package:familly/utils/error_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:school_app/data/features/auth/auth_provider.dart';
+import 'package:school_app/utils/error_manager.dart';
 
 @immutable
 class RegisterPage extends ConsumerWidget {

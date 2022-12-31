@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:familly/config/router/app_router.dart';
-import 'package:familly/config/themes.dart';
-import 'package:familly/data/features/auth/auth_provider.dart';
-import 'package:familly/utils/error_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:school_app/config/router/app_router.dart';
+import 'package:school_app/config/themes.dart';
+import 'package:school_app/data/features/auth/auth_provider.dart';
+import 'package:school_app/utils/error_manager.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' as supabase;
 
 @immutable

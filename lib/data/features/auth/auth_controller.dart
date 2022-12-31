@@ -1,10 +1,9 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:familly/config/router/app_router.dart';
-import 'package:familly/data/features/auth/auth_provider.dart';
-import 'package:familly/data/features/auth/auth_repository.dart';
-import 'package:familly/pages/login/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:school_app/config/router/app_router.dart';
+import 'package:school_app/data/features/auth/auth_provider.dart';
+import 'package:school_app/data/features/auth/auth_repository.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' as supabase;
 import 'package:uni_links/uni_links.dart';
 

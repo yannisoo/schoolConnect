@@ -1,6 +1,6 @@
-import 'package:familly/data/features/auth/auth_provider.dart';
-import 'package:familly/data/services/local_storage.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:school_app/data/features/auth/auth_provider.dart';
+import 'package:school_app/data/services/local_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' as supabase;
 

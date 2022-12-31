@@ -1,6 +1,6 @@
 import 'dart:core';
 
-import 'package:familly/data/services/local_storage.dart';
+import 'package:school_app/data/services/local_storage.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' as supabase;
 
 class AuthRepository {

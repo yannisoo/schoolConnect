@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:familly/config/router/app_router.dart';
-import 'package:familly/config/supabase_instance.dart';
 import 'package:flutter/material.dart';
+import 'package:school_app/config/router/app_router.dart';
+import 'package:school_app/config/supabase_instance.dart';
 
 @immutable
 class SplashPage extends StatefulWidget {

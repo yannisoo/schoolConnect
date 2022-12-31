@@ -1,8 +1,8 @@
-import 'package:familly/config/providers.dart';
-import 'package:familly/data/features/auth/auth_controller.dart';
-import 'package:familly/data/features/auth/auth_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:school_app/config/providers.dart';
+import 'package:school_app/data/features/auth/auth_controller.dart';
+import 'package:school_app/data/features/auth/auth_repository.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' as supabase;
 
 final authRepositoryProvider = Provider<AuthRepository>((ref) {

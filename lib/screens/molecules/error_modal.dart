@@ -1,5 +1,5 @@
-import 'package:familly/config/themes.dart';
 import 'package:flutter/material.dart';
+import 'package:school_app/config/themes.dart';
 
 class ErrorModal extends StatelessWidget {
   const ErrorModal({

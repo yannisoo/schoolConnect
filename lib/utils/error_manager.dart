@@ -1,5 +1,5 @@
-import 'package:familly/screens/molecules/error_modal.dart';
 import 'package:flutter/material.dart';
+import 'package:school_app/screens/molecules/error_modal.dart';
 
 void errorDisplayer(BuildContext context, {String? message}) {
   showModalBottomSheet(

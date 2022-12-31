@@ -1,8 +1,8 @@
-import 'package:familly/bootstrap.dart';
-import 'package:familly/config/router/app_router.dart';
-import 'package:familly/config/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:school_app/bootstrap.dart';
+import 'package:school_app/config/router/app_router.dart';
+import 'package:school_app/config/themes.dart';
 
 void main() async {
   runApp(
