@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:school_app/data/features/auth/auth_provider.dart';
-import 'package:school_app/utils/error_manager.dart';
+import 'package:school_app/utils/modals.dart';
 
 @immutable
 class RegisterPage extends ConsumerWidget {
@@ -27,7 +27,7 @@ class RegisterPage extends ConsumerWidget {
                 try {
                   ref.read(authControllerProvider.notifier).signUp(context);
                 } catch (e) {
-                  errorDisplayer(context, message: e.toString());
+                  errorModal(context, message: e.toString());
                 }
               },
               child: const Text('Sign up'),

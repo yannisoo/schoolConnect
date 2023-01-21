@@ -1,4 +1,4 @@
-import 'dart:convert';
+// ignore_for_file: type_annotate_public_apis, prefer_constructors_over_static_methods, inference_failure_on_untyped_parameter
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -10,8 +10,6 @@ class Lesson with _$Lesson {
   @JsonSerializable(fieldRename: FieldRename.snake)
   const factory Lesson({
     @JsonKey(includeIfNull: false) String? id,
-    @Default('') String name,
-    @JsonKey(includeIfNull: false) String? description,
     @JsonKey(includeIfNull: false) DateTime? createdAt,
     @JsonKey(includeIfNull: false) DateTime? updatedAt,
     @JsonKey(includeIfNull: false) DateTime? startAt,

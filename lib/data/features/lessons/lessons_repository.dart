@@ -12,29 +12,29 @@ class LessonsRepository {
 
   static const String _tableLessons = 'Lessons';
 
-  Future<List<Lesson>> getLessons() async =>
-      await client.from(_tableLessons).select().withConverter(Lesson.toList);
+  Future<List<Lesson>> getLessons() async => await client
+      .from(_tableLessons)
+      .select<supabase.PostgrestList>(
+        'id, subject, room, created_at, updated_at',
+      )
+      .withConverter(Lesson.toList);
 
   Future<Lesson> getLessonById(
     String id,
   ) async =>
       await client
           .from(_tableLessons)
-          .select()
+          .select<supabase.PostgrestMap>()
           .eq('id', id)
+          .maybeSingle()
           .withConverter(Lesson.converter);
 
-  Future<Lesson> createLesson(
+  Future<void> createLesson(
     Lesson lesson,
   ) async =>
-      await client
-          .from(_tableLessons)
-          .insert(
-            lesson.toJson(),
-          )
-          .withConverter(Lesson.converter);
+      await client.from(_tableLessons).insert(lesson.toJson());
 
-  Future<Lesson> updateOrganization(
+  Future<Lesson> updateLesson(
     Lesson lesson,
   ) async =>
       await client
@@ -44,8 +44,11 @@ class LessonsRepository {
           )
           .withConverter(Lesson.converter);
 
-  Future<bool> deleteOrganization(
+  Future<void> deleteLesson(
     Lesson lesson,
   ) async =>
-      await client.from(_tableLessons).delete().eq('id', lesson.id);
+      await client
+          .from(_tableLessons)
+          .delete(returning: supabase.ReturningOption.minimal)
+          .eq('id', lesson.id);
 }

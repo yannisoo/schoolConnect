@@ -9,18 +9,23 @@ class LessonListController extends StateNotifier<AsyncValue<List<Lesson>>> {
       return;
     }
     _repository = repository;
-    _getOrganizations();
+    getLessons();
   }
 
   late final LessonsRepository _repository;
 
-  Future<void> _getOrganizations() async {
+  Future<void> getLessons() async {
     state = const AsyncValue.loading();
     state = AsyncValue.data(await _repository.getLessons());
   }
 
   /// Add organization to the list after creating it
-  void addOrganization(Lesson organization) {
+  void addLesson(Lesson organization) {
     state = state.whenData((value) => value..add(organization));
+  }
+
+  Future<void> deleteLesson(Lesson lesson) async {
+    await _repository.deleteLesson(lesson);
+    state = state.whenData((value) => value..remove(lesson));
   }
 }

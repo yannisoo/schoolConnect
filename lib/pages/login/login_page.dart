@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:school_app/config/router/app_router.dart';
 import 'package:school_app/config/themes.dart';
 import 'package:school_app/data/features/auth/auth_provider.dart';
-import 'package:school_app/utils/error_manager.dart';
+import 'package:school_app/utils/modals.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' as supabase;
 
 @immutable
@@ -33,9 +33,9 @@ class LoginPage extends ConsumerWidget {
                       .read(authControllerProvider.notifier)
                       .signIn(context);
                 } on supabase.AuthException catch (e) {
-                  errorDisplayer(context, message: e.message);
+                  errorModal(context, message: e.message);
                 } catch (_) {
-                  errorDisplayer(context);
+                  errorModal(context);
                 }
               },
               child: const Text('Log in'),
