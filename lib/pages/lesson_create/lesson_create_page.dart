@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,6 +12,10 @@ class LessonCreatePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final createController = ref.read(lessonCreateProvider);
+    final startTime = ref.watch(startTimeProvider);
+    final endTime = ref.watch(endTimeProvider);
+    final dateTime = ref.watch(dateTimeProvider);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Create Lesson'),
@@ -22,10 +28,23 @@ class LessonCreatePage extends ConsumerWidget {
             decoration: const InputDecoration(labelText: 'Subject'),
           ),
           ElevatedButton(
+            onPressed: () => createController.selectDate(context),
+            child: Text('Day: ${dateTime.day}/${dateTime.month}'),
+          ),
+          ElevatedButton(
+            onPressed: () => createController.selectStartTime(context),
+            child: Text('Start Time: ${startTime.hour}:${startTime.minute}'),
+          ),
+          ElevatedButton(
+            onPressed: () => createController.selectEndTime(context),
+            child: Text('End Time: ${endTime.hour}:${endTime.minute}'),
+          ),
+          ElevatedButton(
             onPressed: () async {
               try {
-                await ref.read(lessonCreateProvider).createLesson();
-                await AutoRouter.of(context).push(const HomePageRoute());
+                await createController.createLesson();
+                await AutoRouter.of(context)
+                    .replaceAll([const HomePageRoute()]);
               } catch (e) {
                 errorModal(
                   context,
@@ -33,7 +52,7 @@ class LessonCreatePage extends ConsumerWidget {
                 );
               }
             },
-            child: const Text('Log in'),
+            child: const Text('Créer'),
           ),
         ],
       ),

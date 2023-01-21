@@ -15,7 +15,7 @@ class LessonsRepository {
   Future<List<Lesson>> getLessons() async => await client
       .from(_tableLessons)
       .select<supabase.PostgrestList>(
-        'id, subject, room, created_at, updated_at',
+        'id, subject, room, start_at, finish_at',
       )
       .withConverter(Lesson.toList);
 

@@ -21,3 +21,24 @@ void confirmModal(
     builder: (context) => ConfirmModal(message: message, onConfirm: onConfirm),
   );
 }
+
+Future<TimeOfDay?> selectTime(
+  BuildContext context,
+  TimeOfDay initialTime,
+) async =>
+    showTimePicker(
+      context: context,
+      initialTime: initialTime,
+    );
+Future<DateTime?> selectDay(
+  BuildContext context, {
+  required DateTime initialDate,
+  required DateTime firstDate,
+  required DateTime lastDate,
+}) async =>
+    showDatePicker(
+      context: context,
+      initialDate: initialDate,
+      firstDate: firstDate,
+      lastDate: lastDate,
+    );

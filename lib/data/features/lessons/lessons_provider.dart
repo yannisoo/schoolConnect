@@ -19,9 +19,8 @@ final lessonsRepositoryProvider = Provider<LessonsRepository?>((ref) {
   );
 });
 
-final lessonListProvider =
-    StateNotifierProvider<LessonListController, AsyncValue<List<Lesson>>>(
-        (ref) {
+final lessonListProvider = StateNotifierProvider.autoDispose<
+    LessonListController, AsyncValue<List<Lesson>>>((ref) {
   final repo = ref.watch(lessonsRepositoryProvider);
   return LessonListController(repo);
 });
@@ -32,8 +31,21 @@ final lessonProvider = StateNotifierProvider.autoDispose
   return LessonController(repo, id);
 });
 
-final lessonCreateProvider =
-    StateProvider<LessonCreateController>(LessonCreateController.new);
+final lessonCreateProvider = StateProvider.autoDispose<LessonCreateController>(
+  LessonCreateController.new,
+);
 
-final subjectProvider =
-    StateProvider<TextEditingController>((ref) => TextEditingController());
+final subjectProvider = StateProvider.autoDispose<TextEditingController>(
+  (ref) => TextEditingController(),
+);
+
+final dateTimeProvider =
+    StateProvider.autoDispose<DateTime>((ref) => DateTime.now());
+
+final startTimeProvider = StateProvider.autoDispose<TimeOfDay>(
+  (ref) => const TimeOfDay(hour: 8, minute: 0),
+);
+
+final endTimeProvider = StateProvider.autoDispose<TimeOfDay>(
+  (ref) => const TimeOfDay(hour: 9, minute: 0),
+);

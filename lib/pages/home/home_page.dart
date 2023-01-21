@@ -40,7 +40,7 @@ class HomePage extends ConsumerWidget with DateFormatter {
               leading: const Icon(Icons.book),
               title: Text(list[index].subject),
               subtitle: Text(
-                format(list[index].updatedAt),
+                '${format(list[index].startAt)} - ${format(list[index].finishAt)}',
               ),
               trailing: InkWell(
                 onTap: () => confirmModal(
