@@ -51,7 +51,11 @@ class LessonCreatePage extends ConsumerWidget {
                 height: 2,
                 color: Colors.deepPurpleAccent,
               ),
-              onChanged: (Teacher? value) {},
+              onChanged: (Teacher? value) {
+                if (value != null) {
+                  ref.read(currentTeacherProvider.notifier).state = value;
+                }
+              },
               items: loadedTeacherList
                   .map<DropdownMenuItem<Teacher>>((Teacher value) {
                 return DropdownMenuItem<Teacher>(
