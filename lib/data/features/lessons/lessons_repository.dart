@@ -1,4 +1,4 @@
-import 'package:school_app/data/models/lesson.dart';
+import 'package:school_app/data/models/lessons/lesson.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' as supabase;
 
 class LessonsRepository {
@@ -15,24 +15,26 @@ class LessonsRepository {
   Future<List<Lesson>> getLessons() async => await client
       .from(_tableLessons)
       .select<supabase.PostgrestList>(
-        'id, subject, room, start_at, finish_at',
+        'id, subject, starts_at, ends_at',
       )
       .withConverter(Lesson.toList);
 
   Future<Lesson> getLessonById(
-    String id,
+    int id,
   ) async =>
-      await client
-          .from(_tableLessons)
-          .select<supabase.PostgrestMap>()
-          .eq('id', id)
-          .maybeSingle()
-          .withConverter(Lesson.converter);
+      await client.from(_tableLessons).select('''
+    id,
+    subject,
+    teacher:teacher ( name )
+  ''').eq('id', id).maybeSingle().withConverter(Lesson.converter);
 
   Future<void> createLesson(
     Lesson lesson,
-  ) async =>
-      await client.from(_tableLessons).insert(lesson.toJson());
+  ) async {
+    final map = lesson.toJson();
+    map['teacher'] = lesson.teacher?.id;
+    await client.from(_tableLessons).insert(map);
+  }
 
   Future<Lesson> updateLesson(
     Lesson lesson,

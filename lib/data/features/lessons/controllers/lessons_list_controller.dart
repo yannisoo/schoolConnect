@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:school_app/data/features/lessons/lessons_repository.dart';
-import 'package:school_app/data/models/lesson.dart';
+import 'package:school_app/data/models/lessons/lesson.dart';
 
 class LessonListController extends StateNotifier<AsyncValue<List<Lesson>>> {
   LessonListController(LessonsRepository? repository)

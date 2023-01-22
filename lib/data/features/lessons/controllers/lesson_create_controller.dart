@@ -2,52 +2,54 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:school_app/data/features/lessons/lessons_provider.dart';
 import 'package:school_app/data/features/lessons/lessons_repository.dart';
-import 'package:school_app/data/models/lesson.dart';
+import 'package:school_app/data/models/lessons/lesson.dart';
+import 'package:school_app/data/models/teachers/teacher.dart';
 import 'package:school_app/utils/modals.dart';
-import 'package:uuid/uuid.dart';
 
 class LessonCreateController {
-  LessonCreateController(this._read);
-  final Ref _read;
-  LessonsRepository? get _repository => _read.read(lessonsRepositoryProvider);
+  LessonCreateController(this._ref);
+  final Ref _ref;
+  LessonsRepository? get _repository => _ref.read(lessonsRepositoryProvider);
 
-  TextEditingController get _subjectProvider => _read.read(subjectProvider);
+  TextEditingController get _subjectProvider => _ref.read(subjectProvider);
 
-  TimeOfDay get _timeStartProvider => _read.read(startTimeProvider);
+  TimeOfDay get _timeStartProvider => _ref.read(startTimeProvider);
 
   set _timeStartProvider(TimeOfDay value) =>
-      _read.read(startTimeProvider.notifier).state = value;
+      _ref.read(startTimeProvider.notifier).state = value;
 
-  TimeOfDay get _timeEndProvider => _read.read(endTimeProvider);
+  TimeOfDay get _timeEndProvider => _ref.read(endTimeProvider);
 
   set _timeEndProvider(TimeOfDay value) =>
-      _read.read(endTimeProvider.notifier).state = value;
+      _ref.read(endTimeProvider.notifier).state = value;
 
-  DateTime get _dateProvider => _read.read(dateTimeProvider);
+  DateTime get _dateProvider => _ref.read(dateTimeProvider);
 
   set _dateProvider(DateTime value) =>
-      _read.read(dateTimeProvider.notifier).state = value;
+      _ref.read(dateTimeProvider.notifier).state = value;
+
+  Teacher get _teacherProvider => _ref.read(currentTeacherProvider);
 
   Future<void> createLesson() async {
     final newLesson = Lesson(
-      id: const Uuid().v4(),
       subject: _subjectProvider.text,
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
-      startAt: DateTime(
+      startsAt: DateTime(
         _dateProvider.year,
         _dateProvider.month,
         _dateProvider.day,
         _timeStartProvider.hour,
         _timeStartProvider.minute,
       ),
-      finishAt: DateTime(
+      endsAt: DateTime(
         _dateProvider.year,
         _dateProvider.month,
         _dateProvider.day,
         _timeEndProvider.hour,
         _timeEndProvider.minute,
       ),
+      teacher: _teacherProvider,
     );
     await _repository?.createLesson(newLesson);
   }

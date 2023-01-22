@@ -5,7 +5,7 @@ import 'package:school_app/data/features/lessons/lessons_provider.dart';
 
 class LessonDetailsPage extends ConsumerWidget {
   const LessonDetailsPage({@PathParam('id') required this.lessonId, super.key});
-  final String lessonId;
+  final int lessonId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -19,7 +19,7 @@ class LessonDetailsPage extends ConsumerWidget {
         ),
       ),
       body: lesson.when(
-        data: (o) => Text(o.subject),
+        data: (o) => Text('${o.subject} - ${o.teacher?.name}'),
         error: (e, s) => const SizedBox(),
         loading: () => const Center(
           child: CircularProgressIndicator(),

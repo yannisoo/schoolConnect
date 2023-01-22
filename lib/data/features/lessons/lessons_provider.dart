@@ -6,7 +6,8 @@ import 'package:school_app/data/features/lessons/controllers/lesson_controller.d
 import 'package:school_app/data/features/lessons/controllers/lesson_create_controller.dart';
 import 'package:school_app/data/features/lessons/controllers/lessons_list_controller.dart';
 import 'package:school_app/data/features/lessons/lessons_repository.dart';
-import 'package:school_app/data/models/lesson.dart';
+import 'package:school_app/data/models/lessons/lesson.dart';
+import 'package:school_app/data/models/teachers/teacher.dart';
 
 final lessonsRepositoryProvider = Provider<LessonsRepository?>((ref) {
   final user = ref.watch(authRepositoryProvider.select((v) => v.currentUser));
@@ -26,7 +27,7 @@ final lessonListProvider = StateNotifierProvider.autoDispose<
 });
 
 final lessonProvider = StateNotifierProvider.autoDispose
-    .family<LessonController, AsyncValue<Lesson>, String>((ref, id) {
+    .family<LessonController, AsyncValue<Lesson>, int>((ref, id) {
   final repo = ref.watch(lessonsRepositoryProvider);
   return LessonController(repo, id);
 });
@@ -48,4 +49,11 @@ final startTimeProvider = StateProvider.autoDispose<TimeOfDay>(
 
 final endTimeProvider = StateProvider.autoDispose<TimeOfDay>(
   (ref) => const TimeOfDay(hour: 9, minute: 0),
+);
+
+final currentTeacherProvider = StateProvider.autoDispose<Teacher>(
+  (ref) => const Teacher(
+    id: 0,
+    name: 'test',
+  ),
 );

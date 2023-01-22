@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:school_app/data/features/lessons/lessons_repository.dart';
-import 'package:school_app/data/models/lesson.dart';
+import 'package:school_app/data/models/lessons/lesson.dart';
 
 class LessonController extends StateNotifier<AsyncValue<Lesson>> {
   LessonController(LessonsRepository? repository, this.id)
@@ -13,9 +13,9 @@ class LessonController extends StateNotifier<AsyncValue<Lesson>> {
   }
 
   late final LessonsRepository _repository;
-  final String id;
+  final int id;
 
-  Future<void> _getLesson(String id) async {
+  Future<void> _getLesson(int id) async {
     state = const AsyncValue.loading();
     state = AsyncValue.data(await _repository.getLessonById(id));
   }

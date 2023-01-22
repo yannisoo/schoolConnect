@@ -35,12 +35,12 @@ class HomePage extends ConsumerWidget with DateFormatter {
           child: ListView.builder(
             itemBuilder: (context, index) => ListTile(
               onTap: () => AutoRouter.of(context).push(
-                LessonDetailsPageRoute(lessonId: list[index].id ?? ''),
+                LessonDetailsPageRoute(lessonId: list[index].id ?? 0),
               ),
               leading: const Icon(Icons.book),
               title: Text(list[index].subject),
               subtitle: Text(
-                '${format(list[index].startAt)} - ${format(list[index].finishAt)}',
+                '${format(list[index].startsAt)} - ${format(list[index].endsAt)}',
               ),
               trailing: InkWell(
                 onTap: () => confirmModal(
