@@ -10,7 +10,7 @@ part 'lesson.g.dart';
 class Lesson with _$Lesson {
   @JsonSerializable(fieldRename: FieldRename.snake)
   const factory Lesson({
-    @JsonKey(includeIfNull: false) int? id,
+    @JsonKey(includeIfNull: false) String? id,
     @JsonKey(includeIfNull: false) DateTime? createdAt,
     @JsonKey(includeIfNull: false) DateTime? updatedAt,
     @JsonKey(includeIfNull: false) DateTime? startsAt,

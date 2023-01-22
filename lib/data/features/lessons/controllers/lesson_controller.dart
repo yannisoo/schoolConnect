@@ -13,9 +13,9 @@ class LessonController extends StateNotifier<AsyncValue<Lesson>> {
   }
 
   late final LessonsRepository _repository;
-  final int id;
+  final String id;
 
-  Future<void> _getLesson(int id) async {
+  Future<void> _getLesson(String id) async {
     state = const AsyncValue.loading();
     state = AsyncValue.data(await _repository.getLessonById(id));
   }

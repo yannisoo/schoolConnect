@@ -20,19 +20,20 @@ class LessonsRepository {
       .withConverter(Lesson.toList);
 
   Future<Lesson> getLessonById(
-    int id,
+    String id,
   ) async =>
-      await client.from(_tableLessons).select('''
+      await client.from(_tableLessons).select<supabase.PostgrestMap>('''
     id,
     subject,
-    teacher:teacher ( name )
+    teacher:teacher_id ( name, id )
   ''').eq('id', id).maybeSingle().withConverter(Lesson.converter);
 
   Future<void> createLesson(
     Lesson lesson,
   ) async {
-    final map = lesson.toJson();
-    map['teacher'] = lesson.teacher?.id;
+    final map = lesson.toJson()
+      ..remove('teacher')
+      ..['teacher_id'] = lesson.teacher?.id;
     await client.from(_tableLessons).insert(map);
   }
 

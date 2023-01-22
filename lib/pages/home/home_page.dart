@@ -35,7 +35,7 @@ class HomePage extends ConsumerWidget with DateFormatter {
           child: ListView.builder(
             itemBuilder: (context, index) => ListTile(
               onTap: () => AutoRouter.of(context).push(
-                LessonDetailsPageRoute(lessonId: list[index].id ?? 0),
+                LessonDetailsPageRoute(lessonId: list[index].id ?? ''),
               ),
               leading: const Icon(Icons.book),
               title: Text(list[index].subject),

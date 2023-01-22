@@ -27,7 +27,7 @@ final lessonListProvider = StateNotifierProvider.autoDispose<
 });
 
 final lessonProvider = StateNotifierProvider.autoDispose
-    .family<LessonController, AsyncValue<Lesson>, int>((ref, id) {
+    .family<LessonController, AsyncValue<Lesson>, String>((ref, id) {
   final repo = ref.watch(lessonsRepositoryProvider);
   return LessonController(repo, id);
 });
@@ -53,7 +53,7 @@ final endTimeProvider = StateProvider.autoDispose<TimeOfDay>(
 
 final currentTeacherProvider = StateProvider.autoDispose<Teacher>(
   (ref) => const Teacher(
-    id: 0,
+    id: '',
     name: 'test',
   ),
 );

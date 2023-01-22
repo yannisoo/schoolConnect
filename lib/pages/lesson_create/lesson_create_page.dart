@@ -65,7 +65,9 @@ class LessonCreatePage extends ConsumerWidget {
               }).toList(),
             ),
             error: (e, s) => const Text('Error'),
-            loading: CircularProgressIndicator.new,
+            loading: () => const Center(
+              child: CircularProgressIndicator(),
+            ),
           ),
           ElevatedButton(
             onPressed: () async {

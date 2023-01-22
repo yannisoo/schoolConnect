@@ -5,7 +5,7 @@ import 'package:school_app/data/features/lessons/lessons_provider.dart';
 
 class LessonDetailsPage extends ConsumerWidget {
   const LessonDetailsPage({@PathParam('id') required this.lessonId, super.key});
-  final int lessonId;
+  final String lessonId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
