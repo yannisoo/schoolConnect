@@ -6,18 +6,18 @@ final theme = ThemeData(
   brightness: Brightness.light,
   visualDensity: VisualDensity.adaptivePlatformDensity,
   textTheme: const TextTheme(
-    headline1: TextStyle(
+    displayLarge: TextStyle(
       fontSize: 72,
       fontWeight: FontWeight.bold,
     ),
-    headline6: TextStyle(
+    displayMedium: TextStyle(
       fontSize: 36,
       fontStyle: FontStyle.italic,
     ),
-    bodyText2: TextStyle(
+    displaySmall: TextStyle(
       fontSize: 14,
     ),
-    overline: TextStyle(
+    labelSmall: TextStyle(
       fontSize: 10,
     ),
   ),

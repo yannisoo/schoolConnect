@@ -34,6 +34,7 @@ class AuthRepository {
         case supabase.AuthChangeEvent.passwordRecovery:
         case supabase.AuthChangeEvent.tokenRefreshed:
         case supabase.AuthChangeEvent.userDeleted:
+        case supabase.AuthChangeEvent.mfaChallengeVerified:
           break;
       }
     });

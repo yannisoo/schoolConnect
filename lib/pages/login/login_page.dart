@@ -46,7 +46,7 @@ class LoginPage extends ConsumerWidget {
                     AutoRouter.of(context).push(const RegisterPageRoute()),
                 child: Text(
                   "s'incrire",
-                  style: theme.textTheme.bodyText1?.copyWith(
+                  style: theme.textTheme.bodyMedium?.copyWith(
                     color: theme.primaryColor,
                     decoration: TextDecoration.underline,
                   ),

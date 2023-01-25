@@ -2,9 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:school_app/config/router/app_router.dart';
-import 'package:school_app/data/features/lessons/lessons_provider.dart';
-import 'package:school_app/data/features/teachers/teachers_provider.dart';
-import 'package:school_app/data/models/teachers/teacher.dart';
+import 'package:school_app/data/features/lessons/lesson_create/lesson_create_model.dart';
+import 'package:school_app/data/features/lessons/lesson_create/lesson_create_provider.dart';
 import 'package:school_app/utils/modals.dart';
 
 class LessonCreatePage extends ConsumerWidget {
@@ -42,7 +41,7 @@ class LessonCreatePage extends ConsumerWidget {
             child: Text('End Time: ${endTime.hour}:${endTime.minute}'),
           ),
           teacherList.when(
-            data: (loadedTeacherList) => DropdownButton<Teacher>(
+            data: (loadedTeacherList) => DropdownButton<TeacherLessonCreate>(
               value: currentTeacher,
               icon: const Icon(Icons.arrow_downward),
               elevation: 16,
@@ -51,14 +50,15 @@ class LessonCreatePage extends ConsumerWidget {
                 height: 2,
                 color: Colors.deepPurpleAccent,
               ),
-              onChanged: (Teacher? value) {
+              onChanged: (TeacherLessonCreate? value) {
                 if (value != null) {
                   ref.read(currentTeacherProvider.notifier).state = value;
                 }
               },
               items: loadedTeacherList
-                  .map<DropdownMenuItem<Teacher>>((Teacher value) {
-                return DropdownMenuItem<Teacher>(
+                  .map<DropdownMenuItem<TeacherLessonCreate>>(
+                      (TeacherLessonCreate value) {
+                return DropdownMenuItem<TeacherLessonCreate>(
                   value: value,
                   child: Text(value.name),
                 );
@@ -78,7 +78,7 @@ class LessonCreatePage extends ConsumerWidget {
               } catch (e) {
                 errorModal(
                   context,
-                  message: 'Error creating lesson: ${e.toString()}',
+                  message: 'Error creating lesson: $e',
                 );
               }
             },
