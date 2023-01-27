@@ -2,10 +2,12 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:school_app/config/router/app_router.dart';
+import 'package:school_app/data/features/lessons/lesson_list/lesson_list_model.dart';
 import 'package:school_app/data/features/lessons/lesson_list/lesson_list_provider.dart';
+import 'package:school_app/data/features/lessons/utils/lessons_list_data_source.dart';
 
 import 'package:school_app/utils/date_formatter.dart';
-import 'package:school_app/utils/modals.dart';
+import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 class HomePage extends ConsumerWidget with DateFormatter {
   const HomePage({super.key});
@@ -13,68 +15,65 @@ class HomePage extends ConsumerWidget with DateFormatter {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final lessons = ref.watch(lessonListProvider);
-    final lessonController = ref.watch(lessonListProvider.notifier);
     return Scaffold(
       appBar: AppBar(
         title: lessons.when(
           data: (o) => const Text(
-            'home',
+            'Home',
           ),
           error: (e, s) => const Text('Error'),
           loading: CircularProgressIndicator.new,
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () =>
-            AutoRouter.of(context).push(const LessonCreatePageRoute()),
-        child: const Icon(Icons.add),
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: lessons.when(
-              data: (list) => RefreshIndicator(
-                onRefresh: lessonController.getLessons,
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) => ListTile(
-                    onTap: () => AutoRouter.of(context).push(
-                      LessonDetailsPageRoute(lessonId: list[index].id),
-                    ),
-                    leading: const Icon(Icons.book),
-                    title: Text(list[index].subject),
-                    subtitle: Text(
-                      '${format(list[index].startsAt)} - ${format(list[index].endsAt)}',
-                    ),
-                    trailing: InkWell(
-                      onTap: () => confirmModal(
-                        context,
-                        message: 'Are you sure you want to delete this lesson?',
-                        onConfirm: () =>
-                            lessonController.deleteLesson(list[index]),
-                      ),
-                      child: const Icon(Icons.delete),
-                    ),
-                  ),
-                  itemCount: list.length,
-                ),
-              ),
-              error: (e, s) => const SizedBox(),
-              loading: () => const Center(child: CircularProgressIndicator()),
-            ),
+      body: lessons.when(
+        data: (data) => SfCalendar(
+          view: CalendarView.week,
+          dataSource: LessonListDataSource(data),
+          timeSlotViewSettings: const TimeSlotViewSettings(
+            timeInterval: Duration(minutes: 30),
+            timeFormat: 'HH:mm',
+            startHour: 7,
+            endHour: 20,
           ),
-          ElevatedButton(
-            onPressed: () async {
-              try {
-                // await lessonController.getNewLessons();
-              } catch (e) {
-                errorModal(
-                  context,
-                  message: 'Error creating lesson: $e',
-                );
-              }
-            },
-            child: const Text('Créer'),
+          onTap: (CalendarTapDetails details) async {
+            if (details.targetElement == CalendarElement.appointment) {
+              final lesson = details.appointments![0] as LessonList;
+              await AutoRouter.of(context).push(
+                LessonDetailsPageRoute(
+                  lessonId: lesson.id,
+                ),
+              );
+            }
+          },
+        ),
+        error: (error, stackTrace) => const CircularProgressIndicator(),
+        loading: () => const CircularProgressIndicator(),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: (index) async {
+          switch (index) {
+            case 0:
+              break;
+            case 1:
+              await AutoRouter.of(context).push(const AttendancePageRoute());
+              break;
+            case 2:
+              await AutoRouter.of(context).push(const AttendancePageRoute());
+              break;
+          }
+        },
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.calendar_today),
+            label: 'Calendar',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.access_time_outlined),
+            label: 'Presence',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
           ),
         ],
       ),

@@ -12,7 +12,6 @@ class LessonCreateController {
 
   Future<void> createLesson() async {
     final dateProvider = _ref.read(dateTimeProvider);
-    final teacherProvider = _ref.read(currentTeacherProvider);
     final subjectController = _ref.read(subjectProvider);
     final startTime = _ref.read(startTimeProvider);
     final endTime = _ref.read(endTimeProvider);
@@ -33,7 +32,6 @@ class LessonCreateController {
         endTime.hour,
         endTime.minute,
       ),
-      teacherId: teacherProvider.id,
     );
     await repository.createLesson(newLesson);
   }

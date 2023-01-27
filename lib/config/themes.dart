@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 final theme = ThemeData(
+  useMaterial3: true,
   primarySwatch: Colors.blue,
   primaryColor: Colors.blue,
   brightness: Brightness.light,
@@ -34,9 +35,9 @@ class Margins {
   static const double m80 = 80;
 }
 
-TextStyle get textStyleLightRed => const TextStyle(
-      color: Colors.red,
-      fontFamily: 'Cerebrisans',
-      fontWeight: FontWeight.w400,
-      fontSize: 13,
-    );
+TextStyle textStyleLightRed = const TextStyle(
+  color: Colors.red,
+  fontFamily: 'Cerebrisans',
+  fontWeight: FontWeight.w400,
+  fontSize: 13,
+);

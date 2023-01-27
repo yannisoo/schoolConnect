@@ -18,9 +18,4 @@ class LessonListController extends StateNotifier<AsyncValue<List<LessonList>>> {
     state = const AsyncValue.loading();
     state = AsyncValue.data(await repository.getLessons(from: from, to: to));
   }
-
-  Future<void> deleteLesson(LessonList lesson) async {
-    await repository.deleteLesson(lesson.id);
-    state = state.whenData((value) => value..remove(lesson));
-  }
 }

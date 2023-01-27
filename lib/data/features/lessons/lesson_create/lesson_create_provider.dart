@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:school_app/data/features/lessons/lesson_create/lesson_create_controller.dart';
-import 'package:school_app/data/features/lessons/lesson_create/lesson_create_model.dart';
 import 'package:school_app/data/features/lessons/lessons_provider.dart';
 
 final lessonCreateProvider = StateProvider.autoDispose<LessonCreateController>(
@@ -24,17 +23,4 @@ final startTimeProvider = StateProvider.autoDispose<TimeOfDay>(
 
 final endTimeProvider = StateProvider.autoDispose<TimeOfDay>(
   (ref) => const TimeOfDay(hour: 9, minute: 0),
-);
-
-final currentTeacherProvider = StateProvider.autoDispose<TeacherLessonCreate>(
-  (ref) => const TeacherLessonCreate(
-    id: 'test',
-    name: 'test',
-  ),
-);
-
-final teacherListProvider =
-    FutureProvider.autoDispose<AsyncValue<List<TeacherLessonCreate>>>(
-  (ref) => 
-    ,
 );

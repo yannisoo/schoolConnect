@@ -1,5 +1,3 @@
-// ignore_for_file:  prefer_constructors_over_static_methods, inference_failure_on_untyped_parameter
-
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'lesson_list_model.freezed.dart';
@@ -10,11 +8,9 @@ class LessonList with _$LessonList {
   @JsonSerializable(fieldRename: FieldRename.snake)
   const factory LessonList({
     required String id,
-    required DateTime createdAt,
-    required DateTime updatedAt,
     required DateTime startsAt,
     required DateTime endsAt,
-    @Default('') String subject,
+    required ModuleLessonList module,
   }) = _LessonList;
 
   factory LessonList.fromJson(Map<String, dynamic> json) =>
@@ -26,4 +22,16 @@ class LessonList with _$LessonList {
 
   static LessonList converter(dynamic data) =>
       LessonList.fromJson(data as Map<String, dynamic>);
+}
+
+@freezed
+class ModuleLessonList with _$ModuleLessonList {
+  @JsonSerializable(fieldRename: FieldRename.snake)
+  const factory ModuleLessonList({
+    required String id,
+    required String subject,
+  }) = _ModuleLessonList;
+
+  factory ModuleLessonList.fromJson(Map<String, dynamic> json) =>
+      _$ModuleLessonListFromJson(json);
 }

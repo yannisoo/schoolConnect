@@ -13,13 +13,13 @@ class LessonDetailsPage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: lesson.when(
-          data: (o) => Text(o.subject),
+          data: (o) => Text(o.module.subject),
           error: (e, s) => const Text('Error'),
           loading: CircularProgressIndicator.new,
         ),
       ),
       body: lesson.when(
-        data: (o) => Text('${o.subject} - ${o.teacher.name}'),
+        data: (o) => Text('${o.startsAt.toIso8601String()} - ${o.endsAt}'),
         error: (e, s) => const SizedBox(),
         loading: () => const Center(
           child: CircularProgressIndicator(),

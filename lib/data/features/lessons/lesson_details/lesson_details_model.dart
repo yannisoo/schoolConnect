@@ -8,12 +8,9 @@ class LessonDetails with _$LessonDetails {
   @JsonSerializable(fieldRename: FieldRename.snake)
   const factory LessonDetails({
     required String id,
-    required DateTime createdAt,
-    required DateTime updatedAt,
     required DateTime startsAt,
     required DateTime endsAt,
-    required TeacherLessonDetails teacher,
-    required String subject,
+    required ModuleLessonDetails module,
   }) = _LessonDetails;
 
   factory LessonDetails.fromJson(Map<String, dynamic> json) =>
@@ -28,12 +25,13 @@ class LessonDetails with _$LessonDetails {
 }
 
 @freezed
-class TeacherLessonDetails with _$TeacherLessonDetails {
+class ModuleLessonDetails with _$ModuleLessonDetails {
   @JsonSerializable(fieldRename: FieldRename.snake)
-  const factory TeacherLessonDetails({
-    required String name,
-  }) = _TeacherLessonDetails;
+  const factory ModuleLessonDetails({
+    required String id,
+    required String subject,
+  }) = _ModuleLessonDetails;
 
-  factory TeacherLessonDetails.fromJson(Map<String, dynamic> json) =>
-      _$TeacherLessonDetailsFromJson(json);
+  factory ModuleLessonDetails.fromJson(Map<String, dynamic> json) =>
+      _$ModuleLessonDetailsFromJson(json);
 }

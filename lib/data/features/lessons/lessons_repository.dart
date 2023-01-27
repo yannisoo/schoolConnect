@@ -11,7 +11,7 @@ class LessonsRepository {
 
   final supabase.SupabaseClient client;
 
-  static const String _tableLessons = 'Lessons';
+  static const String _tableLessons = 'lesson';
 
   Future<ListWithCount<List<LessonList>>> getLessonsWithCount({
     required int from,
@@ -20,7 +20,7 @@ class LessonsRepository {
     final response = await client
         .from(_tableLessons)
         .select<supabase.PostgrestResponse<List<Map<String, dynamic>>>>(
-          'id, subject, starts_at, ends_at',
+          'id, starts_at, ends_at, module:module_id(id, subject)',
           const supabase.FetchOptions(count: supabase.CountOption.exact),
         )
         .range(from, to);
@@ -37,7 +37,7 @@ class LessonsRepository {
       await client
           .from(_tableLessons)
           .select<supabase.PostgrestList>(
-            'id, subject, starts_at, ends_at',
+            'id, starts_at, ends_at, module:module_id(id, subject)',
           )
           .range(from, to)
           .withConverter(LessonList.toList);
@@ -45,11 +45,14 @@ class LessonsRepository {
   Future<LessonDetails> getLessonById(
     String id,
   ) async =>
-      await client.from(_tableLessons).select<supabase.PostgrestMap>('''
-    id,
-    subject,
-    teacher:teacher_id ( name, id )
-  ''').eq('id', id).maybeSingle().withConverter(LessonDetails.converter);
+      await client
+          .from(_tableLessons)
+          .select<supabase.PostgrestMap>(
+            'id, starts_at, ends_at, module:module_id(id, subject)',
+          )
+          .eq('id', id)
+          .maybeSingle()
+          .withConverter(LessonDetails.converter);
 
   Future<void> createLesson(
     LessonCreate lesson,
