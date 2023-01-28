@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:school_app/pages/attendance/attendance_page.dart';
+import 'package:school_app/pages/attendance_details/attendance_details_page.dart';
 import 'package:school_app/pages/home/home_page.dart';
 import 'package:school_app/pages/lesson_details/lesson_details_page.dart';
 import 'package:school_app/pages/lesson_list/lesson_list_page.dart';
@@ -19,6 +20,10 @@ part 'app_router.gr.dart';
         AutoRoute(page: LessonListPage),
         AutoRoute(page: AttendancePage),
       ],
+    ),
+    AutoRoute(
+      page: AttendanceDetailsPage,
+      path: '/attendance/:id',
     ),
     AutoRoute(
       page: LessonDetailsPage,

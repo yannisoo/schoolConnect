@@ -13,7 +13,7 @@ class AttendanceDayRepository {
   Future<List<AttendanceDay>> getAttendanceDay() async => await client
       .from(_tableLessons)
       .select<supabase.PostgrestList>(
-        'is_present, lesson:lesson_id!inner(id, starts_at, ends_at, module:module_id!inner(id, subject)), validated_at',
+        'id, is_present, lesson:lesson_id!inner(id, starts_at, ends_at, module:module_id!inner(id, subject)), validated_at',
       )
       .lt(
         'lesson.starts_at',

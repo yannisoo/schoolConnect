@@ -7,6 +7,7 @@ part 'attendance_day_model.g.dart';
 class AttendanceDay with _$AttendanceDay {
   @JsonSerializable(fieldRename: FieldRename.snake)
   const factory AttendanceDay({
+    required int id,
     required bool isPresent,
     required AttendanceDayLesson lesson,
     DateTime? validatedAt,
