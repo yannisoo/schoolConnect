@@ -12,6 +12,9 @@ class AttendanceDetailsPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final attendance = ref.watch(attendanceDetailsProvider(attendanceId));
+    final attendanceController =
+        ref.watch(attendanceDetailsProvider(attendanceId).notifier);
+
     return Scaffold(
       appBar: AppBar(
         title: attendance.when(
@@ -24,6 +27,11 @@ class AttendanceDetailsPage extends ConsumerWidget {
         data: (o) => Column(
           children: [
             Text('${o.lesson.startsAt.toIso8601String()} - ${o.lesson.endsAt}'),
+            Text(o.isPresent ? 'oui ' : 'non'),
+            ElevatedButton(
+              onPressed: attendanceController.setAttendance,
+              child: const Text('Set attendance'),
+            )
           ],
         ),
         error: (e, s) => const SizedBox(),

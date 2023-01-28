@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_dynamic_calls
+
 import 'package:flutter/material.dart';
 import 'package:school_app/data/features/lessons/lesson_list/lesson_list_model.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';

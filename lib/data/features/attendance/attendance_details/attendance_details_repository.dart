@@ -18,4 +18,8 @@ class AttendanceDetailsRepository {
       .eq('id', id)
       .maybeSingle()
       .withConverter(AttendanceDetails.converter);
+
+  Future<void> setAttendance(int id) async => await client
+      .from(_tableLessons)
+      .update({'is_present': true}).eq('id', id);
 }

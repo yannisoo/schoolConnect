@@ -17,4 +17,9 @@ class AttendanceDetailsController
     state = const AsyncValue.loading();
     state = AsyncValue.data(await repository.getAttendanceDetails(id));
   }
+
+  Future<void> setAttendance() async {
+    await repository.setAttendance(id);
+    state = AsyncData(state.value!.copyWith(isPresent: true));
+  }
 }
